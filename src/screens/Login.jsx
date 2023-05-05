@@ -1,199 +1,158 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+// import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
+import GlobalContext from '../context/GlobalContext';
 
 // ==================== LOGIN SCREEN =================
 
 export const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [csrftoken, setCsrftoken] = useState(null)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const navigation = useNavigation();
+    const {URL, csrftoken, setCsrftoken, isAuthenticated, setIsAuthenticated, fetchData} = useContext(GlobalContext)
 
-    const data = {
-        username: '....',
-        password: '....',
-    }
-
-    const handleLogin = async (data) => {
+    const handleLogin = async () => {
         try {
             const response = await axios.put(
-                'http://10.0.2.2:8000/authentications/login/',
-                data
+                `${URL}/authentications/login/`,
+                {
+                    username: username,
+                    password: password
+                }
             );
-            console.log(response)
-            const csrftoken = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+            console.log('login', response.data)
+            console.log('login', response.data)
+            const csrftoken = response.headers['set-cookie'][0].split(';')[0].split('=')[1]
             console.log('CSRFToken: ', csrftoken)
             setCsrftoken(csrftoken)
-            const headers = {
-                headers: {
-                    'X-CSRFToken': csrftoken,
-                },
-            };
-            console.log(`Sucessful, Username: ${username}`);
-            navigation.navigate('Home');
+            setIsAuthenticated(true)
+            console.log(`Sucessful, Username: ${username}`)
+            console.log('Login at Authenticated: ', isAuthenticated)
+            console.log(csrftoken, 'csrftoken at login')
+            fetchData()
+            navigation.navigate('HomeStack')
         } catch (error) {
-            console.log('Error message 1: ', error.message);
-            console.log('Error stack 1: ', error.stack);
-        setErrorMessage('Invalid username or password, please try again.');
+            console.log('LOGIN Error message: ', error)
+            setErrorMessage('Invalid username or password, please try again.')
         }
-    };
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={(text) => setUsername(text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-            {errorMessage ? <Text>{errorMessage}</Text> : null}
-        </View>
-    );
-};
-
-// ==================== LOGOUT SCREEN =================
-
-export const Logout = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [csrftoken, setCsrftoken] = useState(null)
-    const navigation = useNavigation();
-
-    const data = {
-        username: '...',
-        password: '...',
     }
 
-    const handleLogout = async (userObj) => {
-        try {
-            const response = await axios.get(
-                'http://10.0.2.2:8000/authentications/logout/',
-                userObj
-            );
-            console.log(response)
-            setCsrftoken(null)
-            console.log(`Sucessful, Username: ${username}`);
-            navigation.navigate('Main');
-        } catch (error) {
-            console.log('Error message 1: ', error.message);
-            console.log('Error stack 1: ', error.stack);
-        setErrorMessage('Invalid username or password, please try again.');
-        }
-    };
-
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={(text) => setUsername(text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-            {errorMessage ? <Text>{errorMessage}</Text> : null}
-        </View>
-    );
-};
+        <ImageBackground
+            source={{ uri: "https://i.ibb.co/fDnjV1L/ffbgwhite.jpg" }}
+            style={styles.backgroundImage}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Login</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username"
+                    value={username}
+                    onChangeText={(text) => setUsername(text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                />
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
+                {errorMessage ? <Text>{errorMessage}</Text> : null}
+            </View>
+        </ImageBackground>
+    )
+}
 
 // ==================== REGISTER SCREEN =================
 
 export const Register = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [repassword, setRepassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [csrftoken, setCsrftoken] = useState(null)
-    const navigation = useNavigation();
-
-    const userObj = {
-        username: username,
-        password: password,
-        repassword: repassword
-    }
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [repassword, setRepassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
+    const {URL, setCsrftoken, setIsAuthenticated} = useContext(GlobalContext)
+    const navigation = useNavigation()
   
-    const handleRegister = async(userObj) => {
+    const handleRegister = async() => {
         try {
-            const response = await axios.post('http://10.0.2.2:8000/authentications/register/', userObj);
+            const response = await axios.post(`${URL}/authentications/register/`, {
+                username: username,
+                password: password,
+                repassword: repassword
+            })
             console.log(response)
             const csrftoken = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
             console.log('CSRFToken: ', csrftoken)
             setCsrftoken(csrftoken)
-            console.log(`Sucessful, Username: ${username}`);
-            navigation.navigate('Home');
+            setIsAuthenticated(true)
+            console.log(`Sucessful, Username: ${username}`)
+            fetchData()
+            navigation.navigate('Home')
           } catch (error) {
-            console.log('Error message 3: ', error.message);
-            console.log('Error stack 3: ', error.stack);
-            setErrorMessage('Something went wrong, please try again.');
+            console.log('REGISTER Error message: ', error.message)
+            setErrorMessage('Something went wrong, please try again.')
           }
     }
   
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Register</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Confirm Password"
-                value={repassword}
-                onChangeText={setRepassword}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                <Text style={styles.buttonText}>Register</Text>
-            </TouchableOpacity>
-            {errorMessage ? <Text>{errorMessage}</Text> : null}
-        </View>
+
+        <ImageBackground
+            source={{ uri: "https://i.ibb.co/fDnjV1L/ffbgwhite.jpg" }}
+            style={styles.backgroundImage}
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>Register</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username"
+                    value={username}
+                    onChangeText={setUsername}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Confirm Password"
+                    value={repassword}
+                    onChangeText={setRepassword}
+                />
+                <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                    <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
+                {errorMessage ? <Text>{errorMessage}</Text> : null}
+            </View>
+        </ImageBackground>
     )
   }
 
 // ==================== STYLES =================
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fff',
+        marginBottom: 100
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 30,
+        color: '#212529'
     },
     input: {
         width: '60%',
@@ -202,6 +161,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         marginBottom: 15,
+        fontSize: 18,
+        color: '#212529'
     },
     button: {
         backgroundColor: '#007bff',

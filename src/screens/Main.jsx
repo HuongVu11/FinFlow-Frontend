@@ -1,33 +1,45 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, ImageBackground } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Main = ({ navigation }) => {
+    console.log(navigation)
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>FINFLOW</Text>
-            <Text style={styles.subtitle}>Track your income and expenses</Text>
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Login"
-                    onPress={() => navigation.navigate('Login')}
-                />
+        <ImageBackground
+            source={{ uri: "https://i.ibb.co/fDnjV1L/ffbgwhite.jpg" }}
+            style={styles.backgroundImage}>
+            <View style={styles.container}>
+                <Text style={styles.title}>FINFLOW</Text>
+                <Text style={styles.subtitle}>Track your income and expenses</Text>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Login"
+                        onPress={() => navigation.navigate('Login')}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Register"
+                        onPress={() => navigation.navigate('Register')}
+                    />
+                </View>
             </View>
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Register"
-                    onPress={() => navigation.navigate('Register')}
-                />
-            </View>
-        </View>
-    );
-};
+        </ImageBackground>
+    )
+}
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fff',
+        // backgroundColor: 'white',
+        marginBottom: 100
     },
     title: {
         fontSize: 36,
@@ -44,4 +56,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Main;
+export default Main
