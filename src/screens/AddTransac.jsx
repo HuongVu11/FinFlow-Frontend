@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet, ScrollView} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -56,12 +56,13 @@ export const AddIncome = ({route, navigation}) => {
                     onValueChange={(value) => setCategory(value)}
                 >
                     <Picker.Item label="Select a category" value="" />
-                    <Picker.Item label="Salary" value="salary" />
-                    <Picker.Item label="Freelance" value="freelance" />
-                    <Picker.Item label="Investment" value="investment" />
-                    <Picker.Item label="Rental" value="rental" />
-                    <Picker.Item label="Grant" value="grant" />
-                    <Picker.Item label="Other" value="other" />
+                    <Picker.Item label="Salary" value="Salary" />
+                    <Picker.Item label="Business/Freelance" value="Business/Freelance" />
+                    <Picker.Item label="Investment" value="Investment" />
+                    <Picker.Item label="Rental" value="Rental" />
+                    <Picker.Item label="Grant" value="Grant" />
+                    <Picker.Item label="Other" value="Other" />
+
                 </Picker>
             </View>
 
@@ -148,22 +149,30 @@ export const AddExpense = ({route, navigation}) => {
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Category:</Text>
-                <Picker
-                    selectedValue={category}
-                    onValueChange={(value) => setCategory(value)}
-                >
-                    <Picker.Item label="Select a category" value="" />
-                    <Picker.Item label="Food" value="food" />
-                    <Picker.Item label="Housing" value="housing" />
-                    <Picker.Item label="Transportation" value="transportation" />
-                    <Picker.Item label="Entertainment" value="entertainment" />
-                    <Picker.Item label="Personal Care" value="personal care" />
-                    <Picker.Item label="Health" value="health" />
-                    <Picker.Item label="Education" value="education" />
-                    <Picker.Item label="Kids" value="kids" />
-                    <Picker.Item label="Pets" value="pets" />
-                    <Picker.Item label="Other" value="other" />
-                </Picker>
+                <ScrollView style={{ height: 80 }}>
+
+                    <Picker
+                        selectedValue={category}
+                        onValueChange={(value) => setCategory(value)}
+                    >
+                        <Picker.Item label="Select a category" value="" />
+                        <Picker.Item label="Groceries" value="Groceries" />
+                        <Picker.Item label="Rent/Mortgage" value="Rent/Mortgage" />
+                        <Picker.Item label="Utilities" value="Utilites" />
+                        <Picker.Item label="Childcare" value="Childcare" />
+                        <Picker.Item label="Healthcare" value="Healthcare" />
+                        <Picker.Item label="Transportation" value="Transportation" />
+                        <Picker.Item label="Dining out" value="Dining out" />
+                        <Picker.Item label="Entertainment" value="Entertainment" />
+                        <Picker.Item label="Cable/Internet/Phone" value="Cable/Internet/Phone" />
+                        <Picker.Item label="Shopping" value="Shopping" />
+                        <Picker.Item label="Education" value="Education" />
+                        <Picker.Item label="Travel" value="Travel" />
+                        <Picker.Item label="Loan" value="Loan" />
+                        <Picker.Item label="Other" value="Other" />
+                    </Picker>
+
+                </ScrollView>
             </View>
 
             <View style={styles.inputContainer}>

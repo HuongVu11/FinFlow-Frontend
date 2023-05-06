@@ -21,7 +21,7 @@ export const Chart = () => {
             '#115f9a', '#1984c5', '#22a7f0', '#48b5c4', '#76c68f', '#a6d75b', '#c9e52f', '#d0ee11', '#d0f400'
         ]
         const colorExpense =[
-            '#e84702', '#ee6600', '#f38000', '#f7990c', '#fab122', '#fcc838', '#fede50', '#fff469', '#ffe558', '#fff973'
+            '#e84702', '#ee6600', '#f38000', '#f7990c', '#fab122', '#fcc838', '#fede50', '#fff469', '#ffe558', '#fff973', '#e4eed7', '#d7ebbe', '#c9e8a4', '#bae58a', '#aae170'
         ]
         try {
             const incomeResponse = await axios.get(

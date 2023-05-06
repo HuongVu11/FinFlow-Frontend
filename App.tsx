@@ -102,20 +102,17 @@ function App(): JSX.Element {
         `${URL}/incomes/`,
         headers
       )
-      console.log('INCOME: ', incomesResponse.data)
-
+      //console.log('INCOME: ', incomesResponse.data)
       const expensesResponse = await axios.get(
         `${URL}/expenses/`,
         headers
       )
-      console.log('EXPENSES: ', expensesResponse.data)
-
+      //console.log('EXPENSES: ', expensesResponse.data)
       const balanceResponse = await axios.get(
         `${URL}/balance/`,
         headers
       )
-      console.log('BALANCE: ', balanceResponse.data)
-
+      //console.log('BALANCE: ', balanceResponse.data)
       setBalance(balanceResponse.data.balance)
       if (incomesResponse.data != null) {
         setIncomes(incomesResponse.data);
@@ -125,7 +122,7 @@ function App(): JSX.Element {
       }
     } catch (error) {
         console.log('GET USER DATA Error message: ', error)
-  }} 
+  }}
 
   return (
     <SafeAreaView style={backgroundStyle}>

@@ -80,9 +80,9 @@ export const Home = ({navigation}) => {
                 <View style={styles.subContainer}>
                     <Text style={styles.label}>BALANCE</Text>
                     {balance > 0 ? (
-                        <Text style={[styles.amount, {color: 'green'}, {fontSize: 40}]}>{balance}</Text>
+                        <Text style={[styles.amount, {color: '#2c6e49'}, {fontSize: 40}]}>{balance}</Text>
                     ) : (
-                        <Text style={[styles.amount, {color: 'red'}, {fontSize: 40}]}>{balance}</Text>
+                        <Text style={[styles.amount, {color: '#d8572a'}, {fontSize: 40}]}>{balance}</Text>
                     )}   
                 </View>
 
@@ -96,7 +96,7 @@ export const Home = ({navigation}) => {
                 </View>
                 
                 <View style={styles.header}>
-                    <Text style={styles.title}>Recent Incomes</Text>
+                    <Text style={styles.title}>Current month incomes</Text>
                 </View>
                 {recentIncomes && recentIncomes !== null && recentIncomes.length > 0 ? (
                     <>
@@ -128,7 +128,7 @@ export const Home = ({navigation}) => {
                 }
 
                 <View style={styles.header}>
-                    <Text style={styles.title}>Recent Expenses</Text>
+                    <Text style={styles.title}>Current month expenses</Text>
                 </View>
                 {recentExpenses && recentExpenses !== null && recentExpenses.length > 0 ? (
                     <>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '90%',
         paddingHorizontal: 80,
-        paddingBottom: 20,
+        paddingBottom: 40,
     },
     button: {
         flexDirection: 'row',
