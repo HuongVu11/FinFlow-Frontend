@@ -7,7 +7,6 @@ import GlobalContext from '../context/GlobalContext';
 
 export const Home = ({navigation}) => {
     const {URL, csrftoken, balance, incomes, expenses, fetchData} = useContext(GlobalContext)
-
     const actualMonth = new Date().toISOString().substring(0, 7)
     console.log('actual moonth',actualMonth)
 
@@ -31,17 +30,17 @@ export const Home = ({navigation}) => {
             const incomesData = incomes.map(income => {
                 return {
                     ...income,
-                    date: income.date.substring(0, 7)
+                    month: income.date.substring(0, 7)
                 }
             })
             const expensesData = expenses.map(expense => {
                 return {
                     ...expense,
-                    date: expense.date.substring(0, 7)
+                    month: expense.date.substring(0, 7)
                 }
             })
-            const monthlyIncomes = incomesData.filter((income) => income.date === selectedMonth)
-            const monthlyExpenses = expensesData.filter((expense) => expense.date === selectedMonth)
+            const monthlyIncomes = incomesData.filter((income) => income.month === selectedMonth)
+            const monthlyExpenses = expensesData.filter((expense) => expense.month === selectedMonth)
             setRecentIncomes(monthlyIncomes)
             setRecentExpenses(monthlyExpenses)
             setTotalIncome(getTotal(recentIncomes))
@@ -80,9 +79,9 @@ export const Home = ({navigation}) => {
                 <View style={styles.subContainer}>
                     <Text style={styles.label}>BALANCE</Text>
                     {balance > 0 ? (
-                        <Text style={[styles.amount, {color: '#2c6e49'}, {fontSize: 40}]}>{balance}</Text>
+                        <Text style={[styles.amount, {color: '#2c6e49'}, {fontSize: 40}]}>{balance.toLocaleString()}</Text>
                     ) : (
-                        <Text style={[styles.amount, {color: '#d8572a'}, {fontSize: 40}]}>{balance}</Text>
+                        <Text style={[styles.amount, {color: '#d8572a'}, {fontSize: 40}]}>{balance.toLocaleString()}</Text>
                     )}   
                 </View>
 
@@ -107,7 +106,7 @@ export const Home = ({navigation}) => {
                                 }>
                                     <View style={styles.itemDetails}>
                                         <Text style={styles.itemName}>{income.name}</Text>
-                                        <Text style={[styles.itemAmount, styles.incomeAmount]}>${income.amount}</Text>
+                                        <Text style={[styles.itemAmount, styles.incomeAmount]}>${income.amount.toLocaleString()}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -115,7 +114,7 @@ export const Home = ({navigation}) => {
                         <View style={[styles.itemContainer, styles.incomeTotalCtn]}>
                             <View style={[styles.itemDetails,styles.incomeTotalCtn]}>
                                 <Text style={styles.itemName}>TOTAL</Text>
-                                <Text style={[styles.itemAmount, styles.incomeAmount]}>${totalIncome}</Text>
+                                <Text style={[styles.itemAmount, styles.incomeAmount]}>${totalIncome.toLocaleString()}</Text>
                             </View>
                         </View>
                     </>
@@ -142,7 +141,7 @@ export const Home = ({navigation}) => {
                                             <Text style={styles.itemName}>{expense.name}</Text>
                                         </View>
                                         <View style={styles.itemAmountCtn}>
-                                            <Text style={[styles.itemAmount, styles.expenseAmount]}>${expense.amount}</Text>
+                                            <Text style={[styles.itemAmount, styles.expenseAmount]}>${expense.amount.toLocaleString()}</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -152,7 +151,7 @@ export const Home = ({navigation}) => {
                         <View style={[styles.itemContainer, styles.expenseTotalCTn]}>
                             <View style={styles.itemDetails}>
                                 <Text style={styles.itemName}>TOTAL</Text>
-                                <Text style={[styles.itemAmount, styles.expenseAmount]}>${totalExpense}</Text>
+                                <Text style={[styles.itemAmount, styles.expenseAmount]}>${totalExpense.toLocaleString()}</Text>
                             </View>
                         </View>
                     </>

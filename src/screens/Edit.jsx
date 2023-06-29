@@ -19,8 +19,6 @@ export const EditIncome = ({ route, navigation }) => {
     console.log('AMOUNT: ', amount)
     const [date, setDate] = useState(new Date(income.date))
     const {URL, csrftoken, fetchData} = useContext(GlobalContext)
-    const link = `${URL}/incomes/${id}/`
-    console.log( 'LINK: ', link)
 
     const handleValueChange = (text) => {
         if (text === '') {
@@ -129,8 +127,6 @@ export const EditExpense = ({ route, navigation }) => {
     console.log('AMOUNT: ', amount)
     const [date, setDate] = useState(new Date(expense.date))
     const {URL, csrftoken, fetchData} = useContext(GlobalContext)
-    const link = `${URL}/expenses/${id}/`
-    console.log( 'LINK: ', link)
 
     const handleValueChange = (text) => {
         if (text === '') {
@@ -283,22 +279,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#212529'
     },
-    // button: {
-    //     backgroundColor: '#295fa6',//'#1b4965',
-    //     marginTop: 20,
-    //     paddingVertical: 10,
-    //     paddingHorizontal: 15,
-    //     borderRadius: 5,
-    //     alignSelf: 'center',
-    // },
-    //     buttonText: {
-    //     color: 'white',
-    //     fontWeight: 'bold',
-    //     fontSize: 15,
-    // },
-
     button: {
-        backgroundColor: '#295fa6', //'#800f2f',
+        backgroundColor: '#295fa6',
         marginVertical: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,

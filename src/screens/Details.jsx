@@ -45,7 +45,7 @@ export const IncomeDetail = ({navigation, route}) => {
                 <Text style={styles.label}>Category:</Text>
                 <Text style={styles.text}>{income.category}</Text>
                 <Text style={styles.label}>Amount:</Text>
-                <Text style={styles.text}>{income.amount}</Text>
+                <Text style={styles.text}>{income.amount.toLocaleString()}</Text>
                 <Text style={styles.label}>Date:</Text>
                 <Text style={styles.text}>{income.date}</Text>
                 <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteIncome}>
@@ -96,7 +96,7 @@ export const ExpenseDetail = ({navigation, route}) => {
                 <Text style={styles.label}>Category:</Text>
                 <Text style={styles.text}>{expense.category}</Text>
                 <Text style={styles.label}>Amount:</Text>
-                <Text style={styles.text}>{expense.amount}</Text>
+                <Text style={styles.text}>{expense.amount.toLocaleString()}</Text>
                 <Text style={styles.label}>Date:</Text>
                 <Text style={styles.text}>{expense.date}</Text>
                 <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteExpense}>

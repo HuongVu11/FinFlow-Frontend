@@ -25,13 +25,8 @@ export const Logout = ({navigation}) => {
         }
     };
     return(
-        // <TouchableOpacity style={styles.button} onPress={handleLogout}>
-        //     <Text style={styles.buttonText}>Logout</Text>
-        // </TouchableOpacity>
 
         <DrawerContentScrollView>
-            {/* <DrawerItem label="Home" onPress={() => navigation.navigate('Home')} /> */}
-            {/* Other drawer items */}
             <TouchableOpacity style={styles.button} onPress={handleLogout}>
                 <Text style={ styles.buttonText}>Logout</Text>
             </TouchableOpacity>

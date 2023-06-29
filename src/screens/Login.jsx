@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import GlobalContext from '../context/GlobalContext';
 
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
         marginBottom: 100
     },
     title: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 30,
         color: '#212529'
@@ -174,6 +173,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 18,
     },
 });

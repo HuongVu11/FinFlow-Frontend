@@ -80,6 +80,7 @@ export const Database = ({navigation}) => {
 
                     <View style={styles.monthSelectCtn}>
                         <TouchableOpacity onPress={() => {
+                            setSelectedMonth(null)
                             setSelectedIncomes(incomes)
                             setSelectedExpenses(expenses)
                             setHeader('Select a month')
@@ -98,7 +99,7 @@ export const Database = ({navigation}) => {
                         <MonthPicker
                         onChange={onValueChange}
                         value={new Date()}
-                        minimumDate={new Date(2020, 1)}
+                        //minimumDate={new Date(2020, 1)}
                         maximumDate={new Date()}
                         locale="en"
                         />
@@ -117,7 +118,7 @@ export const Database = ({navigation}) => {
                             }>
                                 <View style={styles.itemDetails}>
                                     <Text style={styles.itemName}>{income.name}</Text>
-                                    <Text style={[styles.itemAmount, styles.incomeAmount]}>${income.amount}</Text>
+                                    <Text style={[styles.itemAmount, styles.incomeAmount]}>${income.amount.toLocaleString()}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -143,7 +144,7 @@ export const Database = ({navigation}) => {
                                         <Text style={styles.itemName}>{expense.name}</Text>
                                     </View>
                                     <View style={styles.itemAmountCtn}>
-                                        <Text style={[styles.itemAmount, styles.expenseAmount]}>${expense.amount}</Text>
+                                        <Text style={[styles.itemAmount, styles.expenseAmount]}>${expense.amount.toLocaleString()}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>

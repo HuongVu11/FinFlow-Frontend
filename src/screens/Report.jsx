@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useState, useCallback } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, ImageBackground} from 'react-native'
 import MonthPicker from 'react-native-month-year-picker'
 import Octicons from 'react-native-vector-icons/Octicons'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { PieChart } from 'react-native-chart-kit'
 import axios from 'axios'
 import GlobalContext from '../context/GlobalContext'
@@ -35,21 +34,24 @@ export const Report = ({navigation}) => {
             'Loan'
         ]
         if (expenses !== null && expenses.length > 0) {
-        let needsAmount = 0;
-        let wantsAmount = 0;
-
-        expenses.forEach((expense) => {
-            if (needsArray.includes(expense.category)) {
-            needsAmount += expense.amount;
-            } else if (wantsArray.includes(expense.category)) {
-            wantsAmount += expense.amount;
+            let needsAmount = 0;
+            let wantsAmount = 0;
+            let savingsAmount = 0
+            expenses.forEach((expense) => {
+                if (needsArray.includes(expense.category)) {
+                needsAmount += expense.amount;
+                } else if (wantsArray.includes(expense.category)) {
+                wantsAmount += expense.amount;
+                }
+            });
+            console.log('incomes', incomes)
+            console.log('needsAmount', needsAmount)
+            console.log('wantsAmount', wantsAmount)
+            const savingsData = incomes - needsAmount - wantsAmount;
+            console.log('savingsData', savingsData)
+            if (savingsData>0 ) {
+                savingsAmount = savingsData
             }
-        });
-        console.log('incomes', incomes)
-        console.log('needsAmount', needsAmount)
-        console.log('wantsAmount', wantsAmount)
-        const savingsAmount = incomes - needsAmount - wantsAmount;
-
         return [{ 'needs': needsAmount }, { 'wants': wantsAmount }, { 'savings': savingsAmount }];
         }
     }
@@ -78,13 +80,20 @@ export const Report = ({navigation}) => {
                 setSelectedExpenses(expensesResponse.data.expenses)
                 console.log('selected income', selectedIncomes)
                 console.log('selected expense', selectedExpenses)
-                // const data = get532(selectedIncomes, selectedExpenses);
-                const data = get532(incomesResponse.data.total, expensesResponse.data.expenses);
-                console.log('DATA 532', data)
-                setNeedsAmount(data[0].needs)
-                setWantsAmount(data[1].wants)
-                setSavingsAmount(data[2].savings)
-                console.log('setSaving', data[2].savings)
+
+                if (expensesResponse.data.expenses.length===0) {
+                    console.log('No expenses selected')
+                    setSelectedExpenses(null)
+                    return
+                } else {
+                    const data = get532(incomesResponse.data.total, expensesResponse.data.expenses);
+                    console.log('DATA 532', data)
+                    setNeedsAmount(data[0].needs)
+                    setWantsAmount(data[1].wants)
+                    setSavingsAmount(data[2].savings)
+                    console.log('setSaving', data[2].savings)
+                }
+
             } catch (error) {
                 console.log('GET MONTLY DATA Error message: ', error)
             }
@@ -169,14 +178,6 @@ export const Report = ({navigation}) => {
                 <View style={styles.subContainer}>
 
                     <View style={styles.monthSelectCtn}>
-                        {/* <TouchableOpacity onPress={() => {
-                            setSelectedIncomes(incomes)
-                            setSelectedExpenses(expenses)
-                            setHeader('Select a month')
-                        }}>
-                            <MaterialCommunityIcons name='restart' size={35} color='gray' />
-                        </TouchableOpacity> */}
-
                         <Text style={styles.label}>{header}</Text>
                         
                         <TouchableOpacity onPress={() => showPicker(true)}>
@@ -196,10 +197,10 @@ export const Report = ({navigation}) => {
                 </View>
 
                 <View style={styles.subCtn}>
-                    <Text style={styles.title}>50/30/20 Pie chart</Text>
+                    <Text style={styles.title}>Budget Allocation</Text>
                 </View>
 
-                {selectedMonth && selectedIncomes !==0 && selectedExpenses !==0 ? (
+                {selectedMonth && selectedIncomes !==0 && selectedExpenses !== null ? (
                     <>
                         <View style={styles.subCtn}>
                         <PieChart
@@ -216,7 +217,6 @@ export const Report = ({navigation}) => {
                                 backgroundColor="transparent"
                                 paddingLeft="20"
                                 center={[10, 10]}
-                                //absolute
                         />
                         </View>
 

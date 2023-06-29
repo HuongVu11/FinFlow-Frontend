@@ -20,13 +20,6 @@ export const HomeStack = () => {
             <Drawer.Screen name='HomeDrawer' component={HomeDrawer} options={{ title: '' }} />
         </Drawer.Navigator>
     )
-
-    // return (
-    //     <Drawer.Navigator >
-    //         <Drawer.Screen name='HomeDrawer' component={HomeDrawer} options={{ title: '' }} />
-    //         <Drawer.Screen name='Logout'component={Logout} /> 
-    //     </Drawer.Navigator>
-    // )
 }
 
 
